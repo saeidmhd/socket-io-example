@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket.IO Example</title>
+</head>
+<body>
+    <button onclick="sendNotification()">ارسال نوتیفیکیشن</button>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <script>
+        const socket = io();
+
+        // اتصال به سرور
+        socket.on('connect', () => {
+            console.log('اتصال به سرور برقرار شد.');
+        });
+
+        // دریافت نوتیفیکیشن از سرور
+        socket.on('receiveNotification', (message) => {
+            console.log('دریافت نوتیفیکیشن:', message);
+            alert('نوتیفیکیشن: ' + message);
+        });
+
+        // قطع اتصال از سرور
+        socket.on('disconnect', () => {
+            console.log('اتصال از سرور قطع شد.');
+        });
+
+        // ارسال نوتیفیکیشن به سرور
+        function sendNotification() {
+            const message = 'این یک نوتیفیکیشن است!';
+            socket.emit('sendNotification', message);
+        }
+    </script>
+</body>
+</html>
